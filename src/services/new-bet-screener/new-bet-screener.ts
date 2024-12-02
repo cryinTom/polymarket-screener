@@ -15,6 +15,7 @@ export class NewBetScreener {
   public async run() {
     this.isRunning = true;
     while (this.isRunning) {
+      console.log("getting markets");
       const currentBets = await this.polymarketApi.getMarkets({
         limit: 10,
         order: "createdAt",
