@@ -28,18 +28,19 @@ export class NewBetScreener {
               id: currentBet.id,
             },
           });
-          console.log(existingBet);
           if (!existingBet) {
-            // const newBet = await this.database.bet.create({
-            //   data: {
-            //     id: currentBet.id,
-            //     description: currentBet.description,
-            //     question: currentBet.question,
-            //   },
-            // });
-            // // await this.telegramService.sendNewBetMessage(
-            //   `${newBet.question}\n\n${newBet.description}`,
-            // );
+            const url = `https://polymarket.com/event/${currentBet.events[0]?.slug}`;
+            const newBet = await this.database.bet.create({
+              data: {
+                id: currentBet.id,
+                description: currentBet.description,
+                question: currentBet.question,
+                url,
+              },
+            });
+            await this.telegramService.sendNewBetMessage(
+              `${newBet.question}\n${url}\n\n${newBet.description}`,
+            );
           }
         }
         await sleep(60000);

@@ -18,6 +18,7 @@ model Bet {
   id          String @unique
   question    String
   description String
+  url         String
 }
 
 model PriceHistorySendLog {

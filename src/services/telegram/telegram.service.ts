@@ -10,6 +10,9 @@ export class TelegramService {
     try {
       await this.bot.telegram.sendMessage(this.chatId, message, {
         message_thread_id: this.betsTopicId,
+        link_preview_options: {
+          is_disabled: true,
+        },
       });
     } catch (error) {
       console.error("Error sending message:", error);
@@ -20,6 +23,9 @@ export class TelegramService {
     try {
       await this.bot.telegram.sendMessage(this.chatId, message, {
         message_thread_id: this.priceChangeTopicId,
+        link_preview_options: {
+          is_disabled: true,
+        },
       });
     } catch (error) {
       console.error("Error sending message:", error);
