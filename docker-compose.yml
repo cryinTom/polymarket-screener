@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  core:
+    cpu_period: 50000
+    cpu_quota: 25000
+    mem_limit: 1512m
+    image: oven/bun:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bun start
+    depends_on:
+      - main-db
+  main-db:
+    restart: always
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=polymarket-screener
+    volumes:
+      - polymarket-screener-db:/var/lib/postgresql/data
+volumes:
+  polymarket-screener-db:
+
+
