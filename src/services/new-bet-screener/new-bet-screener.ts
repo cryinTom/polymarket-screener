@@ -15,32 +15,37 @@ export class NewBetScreener {
   public async run() {
     this.isRunning = true;
     while (this.isRunning) {
-      console.log("getting markets");
-      const currentBets = await this.polymarketApi.getMarkets({
-        limit: 10,
-        order: "createdAt",
-        ascending: false,
-      });
-      for (const currentBet of currentBets) {
-        const existingBet = await this.database.bet.findFirst({
-          where: {
-            id: currentBet.id,
-          },
+      try {
+        console.log("getting markets");
+        const currentBets = await this.polymarketApi.getMarkets({
+          limit: 10,
+          order: "createdAt",
+          ascending: false,
         });
-        if (!existingBet) {
-          const newBet = await this.database.bet.create({
-            data: {
+        for (const currentBet of currentBets) {
+          const existingBet = await this.database.bet.findFirst({
+            where: {
               id: currentBet.id,
-              description: currentBet.description,
-              question: currentBet.question,
             },
           });
-          await this.telegramService.sendNewBetMessage(
-            `${newBet.question}\n\n${newBet.description}`,
-          );
+          console.log(existingBet);
+          if (!existingBet) {
+            // const newBet = await this.database.bet.create({
+            //   data: {
+            //     id: currentBet.id,
+            //     description: currentBet.description,
+            //     question: currentBet.question,
+            //   },
+            // });
+            // // await this.telegramService.sendNewBetMessage(
+            //   `${newBet.question}\n\n${newBet.description}`,
+            // );
+          }
         }
+        await sleep(60000);
+      } catch (error) {
+        console.log(error);
       }
-      await sleep(60000);
     }
   }
 
