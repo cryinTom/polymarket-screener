@@ -12,6 +12,7 @@ services:
     depends_on:
       - main-db
   main-db:
+    container_name: main-db
     restart: always
     image: postgres
     ports:
@@ -24,5 +25,3 @@ services:
       - polymarket-screener-db:/var/lib/postgresql/data
 volumes:
   polymarket-screener-db:
-
-
