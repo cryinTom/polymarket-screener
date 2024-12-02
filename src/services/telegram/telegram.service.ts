@@ -5,9 +5,6 @@ export class TelegramService {
   private chatId = -1002375825024;
   private betsTopicId = 4;
   private priceChangeTopicId = 2;
-  constructor() {
-    console.log(this.chatId, this.betsTopicId, this.priceChangeTopicId);
-  }
 
   async sendNewBetMessage(message: string): Promise<void> {
     try {
