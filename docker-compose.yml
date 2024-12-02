@@ -9,19 +9,19 @@ services:
       context: .
       dockerfile: Dockerfile
     command: bun start
-    depends_on:
-      - main-db
-  main-db:
-    container_name: main-db
-    restart: always
-    image: postgres
-    ports:
-      - 5432:5432
-    environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=polymarket-screener
-    volumes:
-      - polymarket-screener-db:/var/lib/postgresql/data
-volumes:
-  polymarket-screener-db:
+  #   depends_on:
+  #     - main-db
+  # main-db:
+  #   container_name: main-db
+  #   restart: always
+  #   image: postgres
+  #   ports:
+  #     - 5432:5432
+  #   environment:
+  #     - POSTGRES_USER=user
+  #     - POSTGRES_PASSWORD=password
+  #     - POSTGRES_DB=polymarket-screener
+  #   volumes:
+  #     - polymarket-screener-db:/var/lib/postgresql/data
+# volumes:
+#   polymarket-screener-db:
