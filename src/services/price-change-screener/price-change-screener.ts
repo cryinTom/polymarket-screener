@@ -42,6 +42,7 @@ export class PriceChangeScreener {
               { market: clobs[0], history: priceData!.history },
               currentBet,
             );
+            await sleep(2000);
           } catch (error) {
             console.log(error);
             console.log(
@@ -50,7 +51,7 @@ export class PriceChangeScreener {
             );
           }
         }
-        await sleep(60000);
+        await sleep(6000);
       } catch (error) {
         console.log(error);
       }
