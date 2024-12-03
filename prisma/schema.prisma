@@ -21,10 +21,11 @@ model Bet {
   url         String
 }
 
-model PriceHistorySendLog {
-  id          Int      @id @default(autoincrement())
-  bet_id      String
-  question    String
-  description String
-  created_at  DateTime @default(now())
+model PriceChange {
+  id               Int      @id @default(autoincrement())
+  clobId           String   @unique
+  changePercentage Float
+  timestamp        DateTime
+
+  @@index([clobId])
 }

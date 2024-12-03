@@ -62,4 +62,34 @@ export class PolymarketAPIClient {
       return [];
     }
   }
+  public async getAllCurrentMarkets(): Promise<PolymarketMarketsResponse[]> {
+    try {
+      const markets: PolymarketMarketsResponse[] = [];
+      let i = 0;
+      while (i < 10) {
+        const data = await fetch(
+          this.baseUrl +
+            "markets?" +
+            new URLSearchParams({
+              limit: "500",
+              order: "liquidity",
+              ascending: "false",
+              active: "true",
+              closed: "false",
+              offset: String(i * 500),
+            }),
+        );
+        const marketData: PolymarketMarketsResponse[] = await data.json();
+        if (!marketData.length) {
+          break;
+        }
+        markets.push(...marketData);
+        i++;
+      }
+      return markets;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
 }
