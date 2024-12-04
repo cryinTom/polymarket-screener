@@ -31,7 +31,15 @@ export class PriceChangeScreener {
 
         const currentBets = await this.polymarketApi.getAllCurrentMarkets();
         console.log(currentBets.length, "currentBets length");
-        for (const currentBet of currentBets) {
+        const filteredBets = currentBets.filter(
+          (item) =>
+            item.liquidityNum > 10000 &&
+            !(
+              item.question.toLowerCase().includes("will") &&
+              item.question.toLowerCase().includes("win")
+            ),
+        );
+        for (const currentBet of filteredBets) {
           try {
             const clobs: string[] = JSON.parse(currentBet.clobTokenIds);
             const priceData = await this.polymarketApi.priceHistory(
